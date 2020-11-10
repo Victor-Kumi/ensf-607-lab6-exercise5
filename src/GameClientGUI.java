@@ -153,7 +153,7 @@ public class GameClientGUI extends JFrame implements ActionListener{
 			response = socketIn.readLine();
 			if (response != null) {
 			    messageDisplay.setText(response);
-			    if (response.contains("You are oPlayer")) {
+			    if (response.contains("opponent")) {
 					symbolDisplay.setText("O");
 				}
 			    else {

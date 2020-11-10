@@ -57,7 +57,7 @@ public class GameThreadPoolServer implements Constants{
 				else if(numOfConnections % 2 == 0) {
 					//board.setSocket(socketOut);
 					//board.display();
-					socketOut.println("Opponent is " + xName + ", please enter your name");
+					socketOut.println("Your opponent is " + xName + ", please enter your name");
 					oName = socketIn.readLine();
 				    oPlayer = new Player(oName, LETTER_O);
 				    xPlayer.getSocketOut().println("connected opponent " + oName);
