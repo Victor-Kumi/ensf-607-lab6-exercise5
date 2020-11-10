@@ -133,8 +133,11 @@ public class GameClientGUI extends JFrame implements ActionListener{
 						messageDisplay.setText(response);
 						turn = true;
 					}
-					else
-					    messageDisplay.setText(response);
+					else {
+						messageDisplay.setText(response);
+						//messageDisplay.append(response);
+					}
+					    
 				}
 
 			} catch (IOException e) {
@@ -181,11 +184,12 @@ public class GameClientGUI extends JFrame implements ActionListener{
 	
 	private void makeComponents() {
 		namePrompt = new JLabel("Name: ");
-		messagePrompt = new JLabel("   Message Window: ");
-		playerSymbolPrompt = new JLabel("Player: ");
+		messagePrompt = new JLabel("");
+		playerSymbolPrompt = new JLabel("Symbol: ");
 		nameField = new JTextField(10);
 		nameField.addActionListener(this);
-		messageDisplay = new JTextArea(10,30);
+		messageDisplay = new JTextArea(5,30);
+		messageDisplay.setLineWrap(true);
 		symbolDisplay = new JTextArea(1,1);
 	    button00 = new JButton();
 	    button00.addActionListener(this);
@@ -245,6 +249,7 @@ public class GameClientGUI extends JFrame implements ActionListener{
 	private void arrangeWestComponents(){
 		westPanel = new JPanel();
 		westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
+		westPanel.add(Box.createVerticalStrut(10));
 		westPanel.add(boxPanel);
 		westPanel.add(Box.createVerticalStrut(10));
 		westPanel.add(playerPanel);
@@ -254,12 +259,13 @@ public class GameClientGUI extends JFrame implements ActionListener{
 		eastPanel = new JPanel();
 		eastPanel.setLayout(new GridLayout(2, 1));
 		eastPanel.add(messagePrompt);
+		westPanel.add(Box.createVerticalStrut(0));
 		eastPanel.add(messageDisplay);
 	}
 	
 	private void arrangeAllComponents(){
 		Container contentPane = getContentPane();
-		contentPane.add("West", westPanel);
+		contentPane.add("Center", westPanel);
 		contentPane.add("South", eastPanel);
 	}
 	
