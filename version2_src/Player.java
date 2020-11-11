@@ -32,6 +32,10 @@ public class Player {
      * Make move and update opponent on move made
      */
     public void makeMove(){
+    	if ((board.getMarkCount() > 7) && !isUsefulMove()) {
+    		isWinner();
+    		return;
+    	}
         int row;
         int col;
         socketOut.println(this.name + ", click a box to play");
@@ -102,5 +106,32 @@ public class Player {
 
     	board.setSocket(opponent.getSocketOut());
     	board.display();
+    }
+    
+    public boolean isUsefulMove() {
+    	//String emptyBox = "";
+    	int emptyBoxRow = -1;
+    	int emptyBoxCol = -1;
+
+    	outer:for (int row = 0; row < 3; row++)
+			for (int col = 0; col < 3; col++) {
+				if (board.getMark(row, col) == board.SPACE_CHAR) {
+					//emptyBox = Integer.toString(row) + Integer.toString(col);
+					emptyBoxRow = row;
+					emptyBoxCol = col;
+					break outer;
+				}
+			}
+    	board.addMark(emptyBoxRow, emptyBoxRow, opponent.getMark());
+    	if (board.xWins()) {
+    		board.removeMark(emptyBoxRow, emptyBoxCol);
+    		System.out.println(opponent.getName() + " wins");
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public char getMark() {
+    	return mark;
     }
 }

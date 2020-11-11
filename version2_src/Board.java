@@ -61,6 +61,11 @@ public class Board implements Constants {
 		theBoard[row][col] = mark;
 		markCount++;
 	}
+	
+	public void removeMark(int row, int col) {
+		theBoard[row][col] = SPACE_CHAR;
+		markCount--;
+	}
 
 	public void clear() {
 		for (int i = 0; i < 3; i++)
@@ -136,4 +141,8 @@ public class Board implements Constants {
     	//this.socketIn = socketIn;
     	this.socketOut = socketOut;
     }
+	
+	public int getMarkCount() {
+		return markCount;
+	}
 }
