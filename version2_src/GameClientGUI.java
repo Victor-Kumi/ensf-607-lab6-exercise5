@@ -139,11 +139,14 @@ public class GameClientGUI extends JFrame implements ActionListener{
 					}
 					    
 				}
+//				else
+//					turn = false;
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 	
 		}
+		turn = false;
 		closeSocket ();	
 	}
 	
