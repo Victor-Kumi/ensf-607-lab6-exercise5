@@ -32,8 +32,8 @@ public class Player {
      * Make move and update opponent on move made
      */
     public void makeMove(){
-    	if ((board.getMarkCount() > 7) && !isUsefulMove()) {
-    		isWinner();
+    	if ((board.getMarkCount() == 8) && !isUsefulMove()) {
+    		//isWinner();
     		return;
     	}
         int row;
@@ -69,18 +69,18 @@ public class Player {
      */
     public boolean isWinner(){
         boolean winner = false;
-        boolean tie = board.isFull();
         boolean xWins = board.xWins();
         boolean oWins = board.oWins();
-        if (tie || xWins || oWins){
+        boolean tie = board.isFull();
+        if (xWins || oWins || tie){
             winner = true;
-            if (tie) {
-            	socketOut.println("GAME OVER!!!.. A TIE GAME");
-            	opponent.socketOut.println("GAME OVER!!!.. A TIE GAME");
-            }   
-            else {
+            if (xWins || oWins) {
             	socketOut.println("GAME OVER!!! " + this.name + " wins");
             	opponent.socketOut.println("GAME OVER!!! " + this.name + " wins");
+            }   
+            else {
+            	socketOut.println("GAME OVER!!!.. A TIE GAME");
+            	opponent.socketOut.println("GAME OVER!!!.. A TIE GAME");
             }
             socketOut.println("GAME OVER");
             opponent.socketOut.println("GAME OVER");
@@ -122,10 +122,10 @@ public class Player {
 					break outer;
 				}
 			}
-    	board.addMark(emptyBoxRow, emptyBoxRow, opponent.getMark());
+    	board.addMark(emptyBoxRow, emptyBoxRow, getMark());
     	if (board.xWins()) {
     		board.removeMark(emptyBoxRow, emptyBoxCol);
-    		System.out.println(opponent.getName() + " wins");
+    		//System.out.println(getName() + " wins");
     		return true;
     	}
     	return false;
