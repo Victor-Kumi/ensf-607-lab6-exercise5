@@ -33,7 +33,6 @@ public class Player {
      */
     public void makeMove(){
     	if ((board.getMarkCount() == 8) && !isUsefulMove()) {
-    		//isWinner();
     		return;
     	}
         int row;
@@ -77,7 +76,7 @@ public class Player {
             if (xWins || oWins) {
             	socketOut.println("GAME OVER!!! " + this.name + " wins");
             	opponent.socketOut.println("GAME OVER!!! " + this.name + " wins");
-            }   
+            }
             else {
             	socketOut.println("GAME OVER!!!.. A TIE GAME");
             	opponent.socketOut.println("GAME OVER!!!.. A TIE GAME");
@@ -92,6 +91,7 @@ public class Player {
     	this.socketIn = socketIn;
     	this.socketOut = socketOut;
     }
+    
     public PrintWriter getSocketOut() {
     	return this.socketOut;
     }
@@ -99,6 +99,7 @@ public class Player {
     public String getName() {
     	return this.name;
     }
+    
     //Method unused
     public void printBoardToBothSocketOuts() {
     	board.setSocket(socketOut);
@@ -122,12 +123,13 @@ public class Player {
 					break outer;
 				}
 			}
-    	board.addMark(emptyBoxRow, emptyBoxRow, getMark());
+    	board.addMark(emptyBoxRow, emptyBoxCol, getMark());
     	if (board.xWins()) {
     		board.removeMark(emptyBoxRow, emptyBoxCol);
     		//System.out.println(getName() + " wins");
     		return true;
     	}
+    	System.out.println(Integer.toString(emptyBoxRow) + " " + Integer.toString(emptyBoxCol) + " mark placement has no effect on a win outcome");
     	return false;
     }
     
